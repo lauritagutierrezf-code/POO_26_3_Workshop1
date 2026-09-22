@@ -244,11 +244,7 @@ public class Workshop {
     }
 
     public int contarCaracteres(String cadena) {
-        int cantidad = 0;
-
-        for (int i = 0; i < cadena.length(); i++) {
-            cantidad++;
-        }
+        int cantidad = cadena.length();
 
         return cantidad;
     }
@@ -290,6 +286,11 @@ public class Workshop {
             } else {
                 palabra = false;
             }
+        }
+
+        // Se suma una palabra más si la cadena tiene texto
+        if (cadena.length() > 0) {
+            cantidad++;
         }
 
         return cantidad;
@@ -579,4 +580,3 @@ public class Workshop {
         return "Invalid Date";
     }
 }
-
