@@ -198,7 +198,9 @@ public class Workshop {
                 if (resultado[j] > resultado[j + 1]) {
 
                     int temporal = resultado[j];
+
                     resultado[j] = resultado[j + 1];
+
                     resultado[j + 1] = temporal;
                 }
             }
@@ -211,6 +213,7 @@ public class Workshop {
     public int[] eliminarDuplicados(int[] arreglo) {
 
         int[] temporal = new int[arreglo.length];
+
         int cantidad = 0;
 
         for (int i = 0; i < arreglo.length; i++) {
@@ -225,7 +228,9 @@ public class Workshop {
             }
 
             if (!repetido) {
+
                 temporal[cantidad] = arreglo[i];
+
                 cantidad++;
             }
         }
@@ -268,10 +273,10 @@ public class Workshop {
 
         for (int i = 0; i < arreglo.length; i++) {
 
-            int nuevaPosicion = i - posiciones;
+            int nuevaPosicion = i + posiciones;
 
-            if (nuevaPosicion < 0) {
-                nuevaPosicion = nuevaPosicion + arreglo.length;
+            if (nuevaPosicion >= arreglo.length) {
+                nuevaPosicion = nuevaPosicion - arreglo.length;
             }
 
             resultado[nuevaPosicion] = arreglo[i];
@@ -283,7 +288,13 @@ public class Workshop {
     // Método que cuenta los caracteres en una cadena
     public int contarCaracteres(String cadena) {
 
-        return cadena.length();
+        int cantidad = 0;
+
+        for (int i = 0; i < cadena.length(); i++) {
+            cantidad++;
+        }
+
+        return cantidad;
     }
 
     // Método que invierte una cadena
@@ -301,34 +312,34 @@ public class Workshop {
     // Método que verifica si una cadena es un palíndromo
     public boolean esPalindromo(String cadena) {
 
-        String invertida = invertirCadena(cadena);
+        for (int i = 0; i < cadena.length() / 2; i++) {
 
-        return cadena.equals(invertida);
+            if (cadena.charAt(i) != cadena.charAt(cadena.length() - 1 - i)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     // Método que cuenta el número de palabras en una cadena
     public int contarPalabras(String cadena) {
 
-        cadena = cadena.trim();
-
-        if (cadena.length() == 0) {
-            return 0;
-        }
-
         int cantidad = 0;
-        boolean dentroDePalabra = false;
+
+        boolean palabra = false;
 
         for (int i = 0; i < cadena.length(); i++) {
 
             if (cadena.charAt(i) != ' ') {
 
-                if (!dentroDePalabra) {
+                if (!palabra) {
                     cantidad++;
-                    dentroDePalabra = true;
+                    palabra = true;
                 }
 
             } else {
-                dentroDePalabra = false;
+                palabra = false;
             }
         }
 
@@ -347,13 +358,13 @@ public class Workshop {
         return cadena.toLowerCase();
     }
 
-    // Método que reemplaza una subcadena
+    // Método que reemplaza una subcadena en una cadena
     public String reemplazarSubcadena(String cadena, String antiguaSubcadena, String nuevaSubcadena) {
 
         return cadena.replace(antiguaSubcadena, nuevaSubcadena);
     }
 
-    // Método que busca una subcadena
+    // Método que busca una subcadena en una cadena
     public int buscarSubcadena(String cadena, String subcadena) {
 
         return cadena.indexOf(subcadena);
@@ -367,13 +378,28 @@ public class Workshop {
         }
 
         int arroba = correo.indexOf("@");
+
+        int ultimaArroba = correo.lastIndexOf("@");
+
         int punto = correo.lastIndexOf(".");
 
-        if (arroba > 0 && punto > arroba + 1 && punto < correo.length() - 1) {
-            return true;
+        if (arroba <= 0) {
+            return false;
         }
 
-        return false;
+        if (arroba != ultimaArroba) {
+            return false;
+        }
+
+        if (punto <= arroba + 1) {
+            return false;
+        }
+
+        if (punto >= correo.length() - 1) {
+            return false;
+        }
+
+        return true;
     }
 
     // Método que calcula el promedio de una lista de números
@@ -392,11 +418,18 @@ public class Workshop {
         return (double) suma / lista.size();
     }
 
-    // Método que convierte un número en binario
+    // Método que convierte un número en su representación binaria
     public String convertirABinario(int numero) {
 
         if (numero == 0) {
             return "0";
+        }
+
+        boolean negativo = false;
+
+        if (numero < 0) {
+            negativo = true;
+            numero = numero * -1;
         }
 
         String resultado = "";
@@ -404,18 +437,31 @@ public class Workshop {
         while (numero > 0) {
 
             int resto = numero % 2;
+
             resultado = resto + resultado;
+
             numero = numero / 2;
+        }
+
+        if (negativo) {
+            resultado = "-" + resultado;
         }
 
         return resultado;
     }
 
-    // Método que convierte un número en hexadecimal
+    // Método que convierte un número en su representación hexadecimal
     public String convertirAHexadecimal(int numero) {
 
         if (numero == 0) {
             return "0";
+        }
+
+        boolean negativo = false;
+
+        if (numero < 0) {
+            negativo = true;
+            numero = numero * -1;
         }
 
         String resultado = "";
@@ -431,13 +477,23 @@ public class Workshop {
             numero = numero / 16;
         }
 
+        if (negativo) {
+            resultado = "-" + resultado;
+        }
+
         return resultado;
     }
 
-    // Método para Piedra, Papel, Tijera, Lagarto, Spock
+    // Método para el juego de piedra, papel, tijera, lagarto, Spock
     public String jugarPiedraPapelTijeraLagartoSpock(String eleccionUsuario) {
 
-        String[] opciones = {"Piedra", "Papel", "Tijera", "Lagarto", "Spock"};
+        String[] opciones = {
+            "Piedra",
+            "Papel",
+            "Tijera",
+            "Lagarto",
+            "Spock"
+        };
 
         int numero = (int) (Math.random() * 5);
 
@@ -485,9 +541,11 @@ public class Workshop {
         return "Perdiste";
     }
 
+    // Método de Piedra, Papel, Tijera, Lagarto, Spock
     public String pptls2(String game[]) {
 
         String jugador1 = game[0];
+
         String jugador2 = game[1];
 
         if (jugador1.equals(jugador2)) {
@@ -532,12 +590,31 @@ public class Workshop {
         return "Player 2";
     }
 
+    // Método que calcula el área del círculo
     public double areaCirculo(double radio) {
 
-        return Math.PI * radio * radio;
+        return Math.PI * radio;
     }
 
+    // Método que determina el signo zodiacal
     public String zoodiac(int day, int month) {
+
+        if (month < 1 || month > 12) {
+            return "Invalid Date";
+        }
+
+        if (day < 1 || day > 31) {
+            return "Invalid Date";
+        }
+
+        if (month == 2 && day > 28) {
+            return "Invalid Date";
+        }
+
+        if ((month == 4 || month == 6 || month == 9 || month == 11)
+                && day > 30) {
+            return "Invalid Date";
+        }
 
         if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) {
             return "Aries";
@@ -587,7 +664,6 @@ public class Workshop {
             return "Piscis";
         }
 
-        return "";
+        return "Invalid Date";
     }
 }
-
