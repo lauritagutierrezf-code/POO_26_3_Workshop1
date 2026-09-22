@@ -277,6 +277,7 @@ public class Workshop {
         return true;
     }
 
+    // Método arreglado según la versión del segundo código
     public int contarPalabras(String cadena) {
         int cantidad = 0;
         boolean palabra = false;
@@ -295,6 +296,7 @@ public class Workshop {
             }
         }
 
+        // Se suma una palabra más si la cadena tiene texto
         if (cadena.length() > 0) {
             cantidad++;
         }
@@ -512,8 +514,9 @@ public class Workshop {
         return "Player 2";
     }
 
+    // Método arreglado según la versión del segundo código (fórmula área del círculo: PI * r^2)
     public double areaCirculo(double radio) {
-        return Math.PI * radio;
+        return Math.PI * radio * radio;
     }
 
     public String zoodiac(int day, int month) {
@@ -586,4 +589,3 @@ public class Workshop {
         return "Invalid Date";
     }
 }
-
