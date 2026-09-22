@@ -253,13 +253,20 @@ public class Workshop {
         String resultado = "";
 
         for (int i = cadena.length() - 1; i >= 0; i--) {
-            resultado = resultado + cadena.charAt(i);
+
+            if (cadena.charAt(i) != '@') {
+                resultado = resultado + cadena.charAt(i);
+            } else {
+                resultado = "@" + resultado;
+            }
         }
 
         return resultado;
     }
 
     public boolean esPalindromo(String cadena) {
+        cadena = cadena.toLowerCase();
+
         for (int i = 0; i < cadena.length() / 2; i++) {
 
             if (cadena.charAt(i) != cadena.charAt(cadena.length() - 1 - i)) {
@@ -288,7 +295,6 @@ public class Workshop {
             }
         }
 
-        // Se suma una palabra más si la cadena tiene texto
         if (cadena.length() > 0) {
             cantidad++;
         }
@@ -580,3 +586,4 @@ public class Workshop {
         return "Invalid Date";
     }
 }
+
